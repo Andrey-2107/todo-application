@@ -3,12 +3,12 @@
     <div class="card">
       <div class="card-body">
         <h3 class="card-title">{{ task.title }}</h3>
-          <ul class="card-text">
-            <li v-for="todo in task.todos">
-              <input type="checkbox" :checked="todo.isCompleted" disabled>
-              <span>{{todo.description}}</span>
-            </li>
-          </ul>
+        <ul class="card-text">
+          <li v-for="todo in task.todos">
+            <input type="checkbox" :checked="todo.isCompleted" disabled>
+            <span>{{todo.description}}</span>
+          </li>
+        </ul>
       </div>
       <div class="card-btn">
         <button class="btn delete-btn">Delete</button>
@@ -29,7 +29,7 @@
     props: ['task'],
     methods: {
       openEditTaskPage(taskId) {
-        this.$router.push({ name: 'create', params: { id: taskId }})
+        this.$router.push({name: 'create', params: {id: taskId}})
       }
     }
   }

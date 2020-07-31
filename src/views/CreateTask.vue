@@ -1,41 +1,41 @@
 <template>
   <div class="form-wrapper">
-  <!--  <div class="card">-->
-  <!--    <h2 class="form-title">-->
-  <!--      Create task-->
-  <!--    </h2>-->
-  <!--    <form @submit.prevent="submitHandler">-->
-  <!--      <div class="input-field">-->
-  <!--        <input-->
-  <!--          type="text"-->
-  <!--          id="title"-->
-  <!--          placeholder="Title"-->
-  <!--          required-->
-  <!--        >-->
-  <!--      </div>-->
-  <!--      <div class="input-field form-group">-->
-  <!--        <div class="todo" v-for="todo in task.todos">-->
-  <!--          <input-->
-  <!--            type="checkbox"-->
-  <!--            :checked="todo.isCompleted"-->
-  <!--          >-->
+    <!--  <div class="card">-->
+    <!--    <h2 class="form-title">-->
+    <!--      Create task-->
+    <!--    </h2>-->
+    <!--    <form @submit.prevent="submitHandler">-->
+    <!--      <div class="input-field">-->
+    <!--        <input-->
+    <!--          type="text"-->
+    <!--          id="title"-->
+    <!--          placeholder="Title"-->
+    <!--          required-->
+    <!--        >-->
+    <!--      </div>-->
+    <!--      <div class="input-field form-group">-->
+    <!--        <div class="todo" v-for="todo in task.todos">-->
+    <!--          <input-->
+    <!--            type="checkbox"-->
+    <!--            :checked="todo.isCompleted"-->
+    <!--          >-->
 
-  <!--          <input-->
-  <!--            type="text"-->
-  <!--            :value="todo.description"-->
-  <!--            id="task-text"-->
-  <!--            placeholder="Task description"-->
-  <!--          >-->
-  <!--        </div>-->
-  <!--      </div>-->
-  <!--      <div class="form-group">-->
-  <!--        <button class="btn"> +</button>-->
-  <!--      </div>-->
+    <!--          <input-->
+    <!--            type="text"-->
+    <!--            :value="todo.description"-->
+    <!--            id="task-text"-->
+    <!--            placeholder="Task description"-->
+    <!--          >-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--      <div class="form-group">-->
+    <!--        <button class="btn"> +</button>-->
+    <!--      </div>-->
 
-        {{noteId}}
-  <!--      <button class="btn" type="submit">Add task</button>-->
-  <!--    </form>-->
-  <!--  </div>-->
+    {{noteId}}
+    <!--      <button class="btn" type="submit">Add task</button>-->
+    <!--    </form>-->
+    <!--  </div>-->
   </div>
 </template>
 
@@ -50,9 +50,7 @@
         noteId: this.$route.params.id
       }
     },
-    methods: {
-
-    }
+    methods: {}
   }
 </script>
 

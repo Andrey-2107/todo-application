@@ -11,20 +11,20 @@
 </template>
 
 <script>
-import Task from "../components/Task";
+  import Task from "../components/Task";
 
-export default {
-  name: 'Home',
-  components: {
-    Task
-  },
+  export default {
+    name: 'Home',
+    components: {
+      Task
+    },
 
-  computed: {
-    tasks() {
-      return this.$store.getters.tasks
+    computed: {
+      tasks() {
+        return this.$store.getters.tasks
+      }
     }
   }
-}
 </script>
 
 <style lang="scss">
