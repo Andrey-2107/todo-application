@@ -1,29 +1,29 @@
 <template>
   <div>
     <div class="container">
-      <Task
-        v-for="task in tasks"
-        :key="tasks.id"
-        :task="task"
+      <Note
+        v-for="note in notes"
+        :key="notes.id"
+        :note="note"
       />
     </div>
   </div>
 </template>
 
 <script>
-  import Task from "../components/Task";
+  import Note from "../components/Note";
 
   export default {
     name: 'Home',
     components: {
-      Task
+      Note,
     },
 
     computed: {
-      tasks() {
-        return this.$store.getters.tasks
+      notes() {
+        return this.$store.getters.notes
       }
-    }
+    },
   }
 </script>
 

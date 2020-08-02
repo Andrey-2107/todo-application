@@ -38,7 +38,7 @@
 <style lang="scss" scoped>
   .navbar {
     padding: 10px 23px;
-    background-color: rgba(151, 28, 189, .9);
+    background-color: rgba(39, 154, 186, .9);
 
     .logo {
       font-size: 28px;

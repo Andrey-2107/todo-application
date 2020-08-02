@@ -1,56 +1,74 @@
 <template>
-  <div class="form-wrapper">
-    <!--  <div class="card">-->
-    <!--    <h2 class="form-title">-->
-    <!--      Create task-->
-    <!--    </h2>-->
-    <!--    <form @submit.prevent="submitHandler">-->
-    <!--      <div class="input-field">-->
-    <!--        <input-->
-    <!--          type="text"-->
-    <!--          id="title"-->
-    <!--          placeholder="Title"-->
-    <!--          required-->
-    <!--        >-->
-    <!--      </div>-->
-    <!--      <div class="input-field form-group">-->
-    <!--        <div class="todo" v-for="todo in task.todos">-->
-    <!--          <input-->
-    <!--            type="checkbox"-->
-    <!--            :checked="todo.isCompleted"-->
-    <!--          >-->
+  <div class="container">
+    <div class="form-wrapper">
+      <div class="card">
+        <h2 class="form-title">
+          Edit task
+        </h2>
+        <form @submit.prevent="">
+          <div class="input-field">
+            <input
+              type="text"
+              placeholder="Title"
+              required
+              @input="title = $event.target.value"
+            >
+          </div>
+          <div class="input-field form-group" v-for="todo in getTodo(id)">
+            <div class="todo">
+              <input
+                type="checkbox"
+                :checked="todo.isCompleted"
+                @input="isCompleted = $event.target.value"
+              >
 
-    <!--          <input-->
-    <!--            type="text"-->
-    <!--            :value="todo.description"-->
-    <!--            id="task-text"-->
-    <!--            placeholder="Task description"-->
-    <!--          >-->
-    <!--        </div>-->
-    <!--      </div>-->
-    <!--      <div class="form-group">-->
-    <!--        <button class="btn"> +</button>-->
-    <!--      </div>-->
+              <input
+                type="text"
+                id="task-text"
+                placeholder="Task description"
+                :value="todo.description"
+                @input="description = $event.target.value"
+              >
+            </div>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-success" @click="getTodo(1)">Add note</button>
+          </div>
 
-    {{noteId}}
-    <!--      <button class="btn" type="submit">Add task</button>-->
-    <!--    </form>-->
-    <!--  </div>-->
+          <button class="btn btn-success" type="submit" @click="changeTask">Add task</button>
+        </form>
+      </div>
+    </div>
+
   </div>
 </template>
 
 <script>
+  import Task from "../components/Note";
 
   export default {
     name: 'create-task',
+    components: {
+      Task
+    },
     data() {
       return {
         title: null,
-        description: null,
-        noteId: this.$route.params.id
+        description: [],
+        isCompleted: [],
+        id: this.$route.params.id
       }
     },
-    methods: {}
+
+    methods: {
+      getTodo(id) {
+        return this.$store.getters.notes.find(element => element.id === id).todos;
+      },
+
+      changeTask() {
+
+      }
+    }
   }
 </script>
 
@@ -91,21 +109,6 @@
             border: none;
             border-bottom: 2px solid #ccc;
             outline: none;
-          }
-        }
-
-        .btn {
-          padding: 10px 20px;
-          font-size: 17px;
-          color: #fff;
-          background-color: #A132C3;
-          border-radius: 21px;
-          border: none;
-          outline: none;
-          transition: .3s;
-
-          &:hover {
-            background-color: #AD66C3;
           }
         }
       }

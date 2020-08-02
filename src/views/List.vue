@@ -5,7 +5,10 @@
 </template>
 
 <script>
-  export default {}
+  import CreateTask from "./CreateTask";
+  export default {
+
+  }
 </script>
 
 <style lang="scss" scoped>

@@ -2,17 +2,17 @@
   <div class="card-wrapper">
     <div class="card">
       <div class="card-body">
-        <h3 class="card-title">{{ task.title }}</h3>
+        <h3 class="card-title">{{ note.title }}</h3>
         <ul class="card-text">
-          <li v-for="todo in task.todos">
+          <li v-for="todo in note.todos">
             <input type="checkbox" :checked="todo.isCompleted" disabled>
             <span>{{todo.description}}</span>
           </li>
         </ul>
       </div>
       <div class="card-btn">
-        <button class="btn delete-btn">Delete</button>
-        <button class="btn edit-btn" @click="openEditTaskPage(task.id)">Edit task</button>
+        <button class="btn btn-danger">Delete</button>
+        <button class="btn btn-success" @click="openEditTaskPage(note.id)">Edit task</button>
       </div>
     </div>
   </div>
@@ -20,13 +20,12 @@
 
 <script>
   export default {
-    computed: {
-      tasks() {
-        return this.$store.getters.tasks
+    props: {
+      note: {
+        type: Object,
+        required: true
       }
     },
-
-    props: ['task'],
     methods: {
       openEditTaskPage(taskId) {
         this.$router.push({name: 'create', params: {id: taskId}})
@@ -40,35 +39,26 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    margin-top: 40px;
+    margin-top: 20px;
 
     .card {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       width: 52%;
-      margin: 10px 20px;
+      margin: 0 20px;
       padding: 20px;
-      background-color: rgba(151, 28, 189, .3);
+      background-color: rgba(39, 154, 186, .4);;
       border-radius: 5px;
+
+      .card-text {
+        list-style: none;
+      }
 
       .card-btn {
         display: flex;
-        align-items: center;
-
-        .btn {
-          padding: 8px 19px;
-          font-size: 16px;
-          color: #ffffff;
-          background-color: #F60000;
-          border: none;
-          border-radius: 4px;
-          outline: none;
-          transition: .3s;
-
-          &:hover {
-            background-color: #FF4800;
-          }
-        }
+        justify-content: center;
+        flex-direction: column;
       }
     }
   }

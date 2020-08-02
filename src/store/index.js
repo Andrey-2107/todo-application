@@ -1,55 +1,19 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import {notes} from '../mocks/notes'
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    tasks: [
-      {
-        title: 'some title 1',
-        todos: [
-          {
-            description: 'some description 1',
-            isCompleted: false
-          }
-        ],
-        id: Date.now(),
-        createdDate: Date.now(),
-        updateDate: Date.now()
-      },
-      {
-        title: 'some title 2',
-        todos: [
-          {
-            description: 'some description 2',
-            isCompleted: false
-          }
-        ],
-        id: Date.now(),
-        createdDate: Date.now(),
-        updateDate: Date.now()
-      },
-      {
-        title: 'some title 3',
-        todos: [
-          {
-            description: 'some description 3',
-            isCompleted: false
-          }
-        ],
-        id: Date.now(),
-        createdDate: Date.now(),
-        updateDate: Date.now()
-      },
-    ]
+    notes
         // JSON.parse(localStorage.getItem('tasks') || '[]')
   },
   mutations: {
     createTask(state, task) {
-      state.tasks.push(task);
+      state.notes.push(task);
 
-      localStorage.setItem('tasks', JSON.stringify(state.tasks));
+      // localStorage.setItem('tasks', JSON.stringify(state.notes));
     }
   },
   actions: {
@@ -61,8 +25,6 @@ export default new Vuex.Store({
   },
 
   getters: {
-    tasks: state => state.tasks,
-
-    getTaskId: state => state.tasks.id,
+    notes: state => state.notes,
   },
 });
