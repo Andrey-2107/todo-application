@@ -5,6 +5,17 @@
         <h2 class="form-title">
           Edit task
         </h2>
+        <div class="form-title">
+          <button class="btn" @click="back()">
+            Back
+          </button>
+          <button class="btn btn-success" @click="commitChanges()">
+            Save
+          </button>
+          <button class="btn btn-danger" >
+            Delete
+          </button>
+        </div>
         <form @submit.prevent="">
           <div class="input-field">
             <input
@@ -12,30 +23,38 @@
               placeholder="Title"
               required
               @input="title = $event.target.value"
+              v-model="note.title"
             >
           </div>
-          <div class="input-field form-group" v-for="todo in getTodo(id)">
+          <div class="input-field form-group" v-for="todo in note.todos">
             <div class="todo">
               <input
                 type="checkbox"
+                class="todo-checkbox"
                 :checked="todo.isCompleted"
-                @input="isCompleted = $event.target.value"
+                @change="todo.isCompleted = $event.target.checked"
               >
 
               <input
                 type="text"
-                id="task-text"
+                class="todo-description"
                 placeholder="Task description"
                 :value="todo.description"
-                @input="description = $event.target.value"
+                @input="todo.description = $event.target.value"
               >
+
+              <button class="btn btn-danger" @click="removeTodo(todo)">X</button>
             </div>
           </div>
           <div class="form-group">
-            <button class="btn btn-success">Add note</button>
+            <button 
+              class="btn btn-success" 
+              type="submit"
+              @click="addTodo()"
+            >
+              +
+            </button>
           </div>
-
-          <button class="btn btn-success" type="submit" @click="changeTask(id)">Add task</button>
         </form>
       </div>
     </div>
@@ -44,31 +63,47 @@
 </template>
 
 <script>
-  import Task from "../components/Note";
+  import { deepDataCopy } from "../utils/object-utils";
+  import { Todo } from "../entities/Todo";
 
   export default {
     name: 'create-task',
-    components: {
-      Task
-    },
     data() {
       return {
-        title: null,
-        description: [],
-        isCompleted: [],
+        note: this.getNoteById(this.$route.params.id),
         id: this.$route.params.id
       }
     },
 
     methods: {
-      getTodo(id) {
-        return this.$store.getters.notes.find(element => element.id === id).todos;
+      getNoteById(id) {
+        const storedNote = this.$store.getters.notes.find(element => element.id === id);
+        const note = deepDataCopy(storedNote);
+
+        return note;
       },
 
-      changeTask(id) {
+      addTodo() {
+        if (this.note !== undefined) {
+          this.note.todos.push(new Todo());
+        }
+      },
 
+      removeTodo(todoToRemove) {
+        const index = this.note.todos.indexOf(todoToRemove);
 
-        this.$store.dispatch('editTask', id)
+        if (index >= 0) {
+          this.note.todos.splice(index, 1);
+        }
+      },
+
+      commitChanges() {
+        this.$store.dispatch("editTask", this.note);
+        this.$router.push("/");
+      },
+
+      back() {
+        this.$router.push("/");
       }
     }
   }
@@ -96,6 +131,23 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+
+        .todo {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          .btn {
+            flex: 0;
+            margin: 0;
+            width: 50px;
+          }
+
+          .todo-description {
+            flex: 1;
+            margin: 0 1em;
+          }
+        }
 
         .input-field {
           display: flex;

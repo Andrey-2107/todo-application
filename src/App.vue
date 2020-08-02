@@ -19,6 +19,10 @@
 
 <style lang="scss">
   * {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    box-sizing: boreder-box;
     font-family: 'Roboto', sans-serif;
   }
 

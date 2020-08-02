@@ -7,35 +7,35 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     notes
-        // JSON.parse(localStorage.getItem('tasks') || '[]')
   },
   mutations: {
-    createTask(state, task) {
-      state.notes.push(task);
-      // localStorage.setItem('tasks', JSON.stringify(state.notes));
+    createTask(state, note) {
+      state.notes.push(note);
     },
 
-    editTask(state, id, task) {
-      this.state.notes = state.notes.forEach(taskForEdit => {
-        taskForEdit.id === id ? taskForEdit = task : taskForEdit
+    editTask(state, note) {
+      const id = note.id;
+
+      state.notes = state.notes.map(taskForEdit => {
+        return taskForEdit.id === id ? note : taskForEdit
       })
     },
 
     deleteTask(state, id) {
-     this.state.notes = state.notes.filter(task => task.id !== id)
+      state.notes = state.notes.filter(note => note.id !== id)
     }
   },
   actions: {
-    createTask({commit}, task) {
-      commit('createTask', task);
+    createTask({commit}, note) {
+      commit('createTask', note);
     },
 
-    removeTask({commit}, taskId) {
-      commit('deleteTask', taskId)
+    removeTask({commit}, noteId) {
+      commit('deleteTask', noteId)
     },
 
-    editTask({commit}, task) {
-      commit('editTask', task)
+    editTask({commit}, note) {
+      commit('editTask', note)
     }
   },
   modules: {

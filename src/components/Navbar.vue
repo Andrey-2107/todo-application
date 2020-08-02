@@ -9,14 +9,6 @@
         Tasks
       </router-link>
       <ul class="nav-list">
-        <router-link
-          tag="li"
-          to="/change-todo"
-          active-class="active"
-          class="router-link"
-        >
-          <a href="#" class="nav-navigate">Change todo</a>
-        </router-link>
 
         <router-link
           tag="li"
