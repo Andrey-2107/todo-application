@@ -11,7 +11,7 @@
         </ul>
       </div>
       <div class="card-btn">
-        <button class="btn btn-danger">Delete</button>
+        <button class="btn btn-danger" @click="deleteTask(note.id)">Delete</button>
         <button class="btn btn-success" @click="openEditTaskPage(note.id)">Edit task</button>
       </div>
     </div>
@@ -29,8 +29,11 @@
     methods: {
       openEditTaskPage(taskId) {
         this.$router.push({name: 'create', params: {id: taskId}})
+      },
+      deleteTask(id) {
+        this.$store.dispatch('removeTask', id)
       }
-    }
+    },
   }
 </script>
 

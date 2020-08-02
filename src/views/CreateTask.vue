@@ -32,10 +32,10 @@
             </div>
           </div>
           <div class="form-group">
-            <button class="btn btn-success" @click="getTodo(1)">Add note</button>
+            <button class="btn btn-success">Add note</button>
           </div>
 
-          <button class="btn btn-success" type="submit" @click="changeTask">Add task</button>
+          <button class="btn btn-success" type="submit" @click="changeTask(id)">Add task</button>
         </form>
       </div>
     </div>
@@ -65,8 +65,10 @@
         return this.$store.getters.notes.find(element => element.id === id).todos;
       },
 
-      changeTask() {
+      changeTask(id) {
 
+
+        this.$store.dispatch('editTask', id)
       }
     }
   }
