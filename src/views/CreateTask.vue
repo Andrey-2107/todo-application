@@ -6,7 +6,7 @@
           Edit task
         </h2>
         <div class="form-title">
-          <button class="btn" @click="back()">
+          <button class="btn btn-primary" @click="back()">
             Back
           </button>
           <button class="btn btn-success" @click="commitChanges()">

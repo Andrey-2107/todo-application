@@ -13,12 +13,14 @@
       <div class="card-btn">
         <button class="btn btn-danger" @click="deleteTask(note.id)">Delete</button>
         <button class="btn btn-success" @click="openEditTaskPage(note.id)">Edit task</button>
+        <button class="btn btn-info" @click="confirm">Alertify</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+
   export default {
     props: {
       note: {
@@ -30,9 +32,14 @@
       openEditTaskPage(taskId) {
         this.$router.push({name: 'create', params: {id: taskId}})
       },
+
       deleteTask(id) {
-        this.$store.dispatch('removeTask', id)
-      }
+        this.$store.dispatch('removeTask', id);
+      },
+
+      confirm() {
+        this.$alertify.success('success');
+      },
     },
   }
 </script>

@@ -58,4 +58,31 @@
     }
   }
 
+  .btn-primary {
+    color: #000;
+    background-color: rgba(227, 237, 81, 1);
+
+    &:hover {
+      background-color: rgba(221, 235, 23, 1);
+
+    }
+  }
+
+  .btn-info {
+    color: #fff;
+    background-color: rgba(158, 158, 157, 1);
+
+    &:hover {
+      background-color: rgba(89, 89, 89, 1);
+    }
+
+    .btn-action {
+      color: #000;
+      background-color: rgba(196, 195, 181, 1);
+
+      &:hover {
+        background-color: rgba(122, 121, 110, 1);
+      }
+    }
+  }
 </style>
