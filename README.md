@@ -24,8 +24,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 - [*] Add TODO button
 - [*] Delete TODO button 
 - [*] Save Note button
-- [] Delete Note button (reuse)
-- [] Cancel editing
+- [*] Delete Note button (reuse)
+- [*] Cancel editing
 
 ##### Complex logic
 - [] History back

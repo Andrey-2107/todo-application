@@ -3,7 +3,7 @@
     <div class="container">
       <Note
         v-for="note in notes"
-        :key="notes.id"
+        :key="note.id"
         :note="note"
       />
     </div>
@@ -21,11 +21,6 @@
     },
 
     computed: mapGetters(['notes'])
-    // computed: {
-    //   notes() {
-    //     return this.$store.getters.notes
-    //   }
-    // },
   }
 </script>
 

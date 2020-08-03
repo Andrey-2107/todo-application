@@ -3,17 +3,27 @@
     <div class="form-wrapper">
       <div class="card">
         <h2 class="form-title">
-          Edit task
+          {{ pageHeading }}
         </h2>
-        <div class="form-title">
-          <button class="btn btn-primary" @click="back()">
+        <div class="form-title form-controls">
+          <button class="btn btn-primary" @click="confirmBack()">
             Back
           </button>
           <button class="btn btn-success" @click="commitChanges()">
             Save
           </button>
-          <button class="btn btn-danger" >
+          <button 
+            class="btn btn-danger"
+            :disabled="isNew"
+            @click="deleteTask()"
+          >
             Delete
+          </button>
+          <button class="btn btn-info" :disabled="isNew" @click="historyBack()">
+            &lt;-
+          </button>
+          <button class="btn btn-info" :disabled="isNew" @click="historyForward()">
+            -&gt;
           </button>
         </div>
         <form @submit.prevent="">
@@ -22,25 +32,26 @@
               type="text"
               placeholder="Title"
               required
-              @input="title = $event.target.value"
               v-model="note.title"
             >
           </div>
-          <div class="input-field form-group" v-for="todo in note.todos">
+          <div 
+            class="input-field form-group" 
+            :key="todo.id" 
+            v-for="todo in note.todos"
+          >
             <div class="todo">
               <input
                 type="checkbox"
                 class="todo-checkbox"
-                :checked="todo.isCompleted"
-                @change="todo.isCompleted = $event.target.checked"
+                v-model="todo.isCompleted"
               >
 
               <input
                 type="text"
                 class="todo-description"
                 placeholder="Task description"
-                :value="todo.description"
-                @input="todo.description = $event.target.value"
+                v-model="todo.description"
               >
 
               <button class="btn btn-danger" @click="removeTodo(todo)">X</button>
@@ -64,14 +75,32 @@
 
 <script>
   import { deepDataCopy } from "../utils/object-utils";
+  import { Note } from "../entities/Note";
   import { Todo } from "../entities/Todo";
 
   export default {
     name: 'create-task',
     data() {
       return {
-        note: this.getNoteById(this.$route.params.id),
-        id: this.$route.params.id
+        note: null,
+        id: null,
+        pageHeading: null,
+        isNew: false
+      }
+    },
+
+    created() {
+      switch(this.$route.params.id) {
+        case "new":
+          this.note = new Note("", Date.now());
+          this.id = this.note.id;
+          this.pageHeading = "Add Note";
+          this.isNew = true;
+          break;
+        default:
+          this.note = this.getNoteById(this.$route.params.id)
+          this.id = this.$route.params.id
+          this.pageHeading = "Edit Note"
       }
     },
 
@@ -98,8 +127,55 @@
       },
 
       commitChanges() {
-        this.$store.dispatch("editTask", this.note);
+        this.note.updateDate = Date.now()
+
+        if (this.isNew) {
+          this.$store.dispatch("createTask", this.note);
+          this.isNew = false;
+        } else {
+          this.$store.dispatch("editTask", this.note);
+        }
+        
         this.$router.push("/");
+      },
+
+      deleteTask() {
+        this.$alertify.confirm(
+          'Do you really want to delete this note?',
+          () => {
+            this.$store.dispatch('removeTask', this.note.id);
+            this.$alertify.error('Note was deleted!');
+            this.back();
+          },
+          () => {}
+        );
+      },
+
+      historyBack() {
+        let oldNote = this.$store.getters.historyBack(this.note.id, this.note.updateDate);
+
+        if (oldNote !== undefined) {
+          this.note = oldNote;
+        }
+      },
+
+      historyForward() {
+        let futureNote = this.$store.getters.historyForward(this.note.id, this.note.updateDate);
+
+        if (futureNote !== undefined) {
+          this.note = futureNote;
+        }
+      },
+
+      confirmBack() {
+        this.$alertify.confirm(
+          'Do you want to cancel editing?',
+          () => {
+            this.back();
+          },
+          () => {}
+        );
+        
       },
 
       back() {
@@ -115,6 +191,17 @@
     justify-content: center;
     margin-top: 50px;
 
+    .form-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 1rem 0;
+
+      button {
+        margin: 0 1rem;
+      }
+    }
+
     .card {
       width: 550px;
       padding: 20px;
@@ -122,7 +209,7 @@
       border-radius: 5px;
 
       .form-title {
-        margin-top: 0;
+        margin: 0 0 1rem 0;
         text-align: center;
         font-size: 40px;
       }
@@ -131,6 +218,8 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+
+
 
         .todo {
           display: flex;

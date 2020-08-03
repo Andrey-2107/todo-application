@@ -11,14 +11,9 @@ const routes = [
     component: Home
   },
   {
-    path: '/change-todo',
-    name: 'change-todo',
-    component: () => import('@/views/List.vue')
-  },
-  {
     path: '/create/:id',
     name: 'create',
-    component: () => import('@/views/CreateTask.vue')
+    component: () => import('@/views/AlterTask.vue')
   }
 ];
 

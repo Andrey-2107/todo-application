@@ -8,7 +8,6 @@
   import Navbar from "./components/Navbar";
   import Home from "./views/Home";
 
-
   export default {
     components: {
       Navbar,
@@ -37,51 +36,51 @@
     border: none;
     border-radius: 4px;
     outline: none;
-    transition: .3s;
+    transition: 200ms;
+    cursor: pointer;
   }
 
   .btn-danger {
     color: #ffffff;
-    background-color: rgba(212, 44, 44, 1);
+    background-color: #d42c2c;
 
     &:hover {
-      background-color: rgba(240, 17, 17, 1);
+      background-color: #f01111;
     }
   }
 
   .btn-success {
     color: #ffffff;
-    background-color: rgba(48, 167, 176, 1);
+    background-color: #30a7b0;
 
     &:hover {
-      background-color: rgba(11, 120, 128, 1);
+      background-color: #0b7880;
     }
   }
 
   .btn-primary {
-    color: #000;
-    background-color: rgba(227, 237, 81, 1);
+    color: #ffffff;
+    background-color: #1136b1;
 
     &:hover {
-      background-color: rgba(221, 235, 23, 1);
-
+      background-color: #0e2779;
     }
   }
 
   .btn-info {
     color: #fff;
-    background-color: rgba(158, 158, 157, 1);
+    background-color: #9e9e9d;
 
     &:hover {
-      background-color: rgba(89, 89, 89, 1);
+      background-color: #595959;
     }
 
     .btn-action {
       color: #000;
-      background-color: rgba(196, 195, 181, 1);
+      background-color: #c4c3b5;
 
       &:hover {
-        background-color: rgba(122, 121, 110, 1);
+        background-color: #7a796e;
       }
     }
   }

@@ -12,7 +12,7 @@
 
         <router-link
           tag="li"
-          to="/create"
+          to="/create/new"
           active-class="active"
           class="router-link"
         >

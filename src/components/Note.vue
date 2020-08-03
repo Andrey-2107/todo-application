@@ -4,7 +4,7 @@
       <div class="card-body">
         <h3 class="card-title">{{ note.title }}</h3>
         <ul class="card-text">
-          <li v-for="todo in note.todos">
+          <li :key="todo.id" v-for="todo in getPreviewTodos()">
             <input type="checkbox" :checked="todo.isCompleted" disabled>
             <span>{{todo.description}}</span>
           </li>
@@ -12,14 +12,16 @@
       </div>
       <div class="card-btn">
         <button class="btn btn-danger" @click="deleteTask(note.id)">Delete</button>
-        <button class="btn btn-success" @click="openEditTaskPage(note.id)">Edit task</button>
-        <button class="btn btn-info" @click="confirm">Alertify</button>
+        <button class="btn btn-success" @click="openEditTaskPage(note.id)">
+          Edit task
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+  import {APP_CONSTANTS} from "../utils/app-constants"
 
   export default {
     props: {
@@ -34,12 +36,28 @@
       },
 
       deleteTask(id) {
-        this.$store.dispatch('removeTask', id);
+        this.$alertify.confirm(
+          'Do you really want to delete this note?',
+          () => {
+            this.$store.dispatch('removeTask', id);
+            this.$alertify.error('Note was deleted!');
+          },
+          () => {}
+        );
       },
 
-      confirm() {
-        this.$alertify.success('success');
-      },
+      getPreviewTodos() {
+        let previewTodos = [];
+
+        if (this.note !== undefined) {
+          previewTodos = this.note.todos.slice(
+            0, 
+            APP_CONSTANTS.maxVisiblePreviewTodos
+          );
+        }
+
+        return previewTodos;
+      }
     },
   }
 </script>
